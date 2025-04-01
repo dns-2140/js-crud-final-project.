@@ -18,3 +18,7 @@
   min-height: 80vh;
   width: 66%;
 }
+
+ul {
+  list-style: none;
+}
