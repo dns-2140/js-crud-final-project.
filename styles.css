@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: 'Mulish', sans-serif;
+  color: #2d3748;
+}
+
 #global-container {
   background-color: #f0f4f8;
   min-height: 100vh;
@@ -16,9 +21,57 @@
 .container {
   background-color: white;
   min-height: 80vh;
-  width: 66%;
+  width: 80%;
 }
 
 ul {
   list-style: none;
+}
+
+table {
+  padding: 1rem;
+  border-spacing: 0 1rem;
+  font-size: 1rem;
+}
+
+th,
+td {
+  padding: 0.5rem;
+  border-top: 1px solid #e6eaee;
+  border-bottom: 1px solid #e6eaee; /* Maintains cell structure */
+  text-align: center;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+}
+button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
+#submit {
+  margin-left: 1rem;
+  margin-top: 2rem;
+  color: #e6eaee;
+  background-color: #1a365d;
+  border: none;
+}
+
+.editBtn button {
+  color: #e6eaee;
+  background-color: #1a365d;
+  border: none;
+}
+
+.deleteBtn button {
+  color: #e6eaee;
+  background-color: orangered;
+  border: none;
+}
+
+a {
+  text-decoration: none;
 }

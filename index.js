@@ -20,12 +20,20 @@ const updateDom = () => {
   globalState.users.map((user) => {
     userList.insertAdjacentHTML(
       'beforeend',
-      `<li>${user.name}
+      `<tr>
+      <td>${user.id}</td>
+      <td>${user.name}</td>
+      <td>${user.username}</td>
+      <td>${user.email}</td>
+      <td>${user.address.street}</td>
+      <td class="buttons-container">
       <a 
       class="editBtn" 
       onclick="handleEdit(${user.id})"><button>edit</button></a>
       <a class="deleteBtn" onclick="handleDelete(${user.id})"><button>delete</button></a>
-      </li>`
+      </td>
+      
+      <tr>`
     );
   });
 };
