@@ -16,8 +16,34 @@
 
   <body>
     <div id="global-container">
+      <dialog id="myDialog">
+        <form id="dialogForm" method="dialog">
+          <h3>User data</h3>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required />
+          </div>
+          <div class="form-group">
+            <label for="email">email</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="address">address</label>
+            <input type="text" id="address" name="address" />
+          </div>
+          <div class="form-actions">
+            <button type="submit">Submit</button>
+            <button onclick="myDialog.close()">Close</button>
+          </div>
+        </form>
+      </dialog>
       <div class="container">
-        <button id="submit">add a new user</button>
+        <button id="open" onclick="myDialog.showModal()">add a new user</button>
+
         <table>
           <thead>
             <tr>

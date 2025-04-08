@@ -16,12 +16,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 8rem;
 }
 
 .container {
   background-color: white;
   min-height: 80vh;
-  width: 80%;
+  width: 100%;
 }
 
 ul {
@@ -29,7 +30,7 @@ ul {
 }
 
 table {
-  padding: 1rem;
+  padding: 2rem;
   border-spacing: 0 1rem;
   font-size: 1rem;
 }
@@ -52,9 +53,9 @@ button {
   border-radius: 0.25rem;
 }
 
-#submit {
-  margin-left: 1rem;
-  margin-top: 2rem;
+#open {
+  margin-left: 2rem;
+  margin-top: 4rem;
   color: #e6eaee;
   background-color: #1a365d;
   border: none;

@@ -3,7 +3,7 @@ const globalState = {
 };
 
 const userList = document.querySelector('.userList');
-const submitBtn = document.querySelector('#submit');
+const openModalBtn = document.querySelector('#open');
 
 const handleEdit = (id) => {
   console.log(id);
@@ -43,23 +43,6 @@ const fetchData = async () => {
     const users = await axios('https://jsonplaceholder.typicode.com/users');
     globalState.users = [...users.data];
     console.log(globalState.users);
-    updateDom();
-  } catch (error) {
-    console.log('there is an error', error);
-  }
-};
-
-const postData = async () => {
-  const newUserData = {
-    name: 'David',
-    username: 'dns2140',
-  };
-  try {
-    const newUser = await axios.post(
-      'https://jsonplaceholder.typicode.com/users',
-      newUserData
-    );
-    globalState.users.push(newUser.data);
     updateDom();
   } catch (error) {
     console.log('there is an error', error);
@@ -129,8 +112,38 @@ const deleteUser = async (id) => {
   }
 };
 
-submitBtn.addEventListener('click', () => {
-  postData();
-});
-
 fetchData();
+
+//dialog and form
+const dialog = document.getElementById('myDialog');
+const modalForm = dialog.querySelector('#dialogForm');
+console.log('ini adlaah modal form', modalForm);
+
+modalForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const formData = new FormData(modalForm);
+  const formObject = Object.fromEntries(formData.entries());
+  console.log(formData);
+  console.log(formObject);
+  const { name, username, email, address } = formObject;
+  const newUserData = {
+    name,
+    username,
+    email,
+    address: {
+      street: address,
+    },
+  };
+  try {
+    const newUser = await axios.post(
+      'https://jsonplaceholder.typicode.com/users',
+      newUserData
+    );
+    globalState.users.push(newUser.data);
+    updateDom();
+  } catch (error) {
+    console.log('there is an error', error);
+  }
+  modalForm.reset();
+  dialog.close();
+});
