@@ -5,11 +5,6 @@ const globalState = {
 const userList = document.querySelector('.userList');
 const openModalBtn = document.querySelector('#open');
 
-const handleDelete = (id) => {
-  console.log(id);
-  deleteUser(id);
-};
-
 const updateDom = () => {
   userList.innerHTML = '';
   globalState.users.map((user) => {
@@ -24,8 +19,8 @@ const updateDom = () => {
       <td class="buttons-container">
       <a 
       class="editBtn" 
-      onclick="handleEdit(${user.id})"><button>edit</button></a>
-      <a class="deleteBtn" onclick="handleDelete(${user.id})"><button>delete</button></a>
+      onclick="handleEdit(${user.id})"><button><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
+      <a class="deleteBtn" onclick="handleDelete(${user.id})"><button><i class="fa fa-trash-o" aria-hidden="true"></i></button></a>
       </td>
 
       
@@ -46,10 +41,15 @@ const fetchData = async () => {
   }
 };
 
-const updateUser = async (id) => {
+const updateUser = async (id, data) => {
+  const { name, username, email, address } = data;
   const updatedUser = {
-    name: 'Davidddddd',
-    username: 'dns2140000',
+    name,
+    username,
+    email,
+    address: {
+      street: address,
+    },
   };
   try {
     //update server
@@ -87,25 +87,6 @@ const updateUser = async (id) => {
   } catch (error) {
     console.log('there is an error', error);
     throw error;
-  }
-};
-
-const deleteUser = async (id) => {
-  try {
-    //update server
-    const response = await axios.delete(
-      `https://jsonplaceholder.typicode.com/users/${id}`
-    );
-    console.log('Deleted user:', response.data);
-
-    //update global state
-    globalState.users = globalState.users.filter(
-      (user) => user.id !== parseInt(id)
-    );
-
-    updateDom();
-  } catch (error) {
-    console.log('there is an error', error);
   }
 };
 
@@ -148,8 +129,6 @@ modalForm.addEventListener('submit', async (event) => {
 const handleEdit = (id) => {
   const updateDialog = document.getElementById('updateDialog');
   const updateForm = updateDialog.querySelector('#updateForm');
-  console.log(updateDialog);
-  console.log(updateForm);
 
   const user = globalState.users.find((user) => user.id === id);
 
@@ -160,12 +139,44 @@ const handleEdit = (id) => {
   updateDialog.showModal();
   updateForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    console.log('submit');
+
     const formData = new FormData(updateForm);
     const formObject = Object.fromEntries(formData.entries());
+    updateDialog.close();
+    updateUser(id, formObject);
+  });
+};
 
-    console.log(formData);
-    console.log(formObject);
-    const { name, username, email, address } = formObject;
+const deleteModal = document.getElementById('deleteDialog');
+const yesButton = document.querySelector('.yes');
+const noButton = document.querySelector('.no');
+
+const deleteUser = async (id) => {
+  try {
+    //update server
+    const response = await axios.delete(
+      `https://jsonplaceholder.typicode.com/users/${id}`
+    );
+    console.log('Deleted user:', response.data);
+
+    //update global state
+    globalState.users = globalState.users.filter(
+      (user) => user.id !== parseInt(id)
+    );
+
+    updateDom();
+    deleteModal.close();
+  } catch (error) {
+    console.log('there is an error', error);
+  }
+};
+
+const handleDelete = (id) => {
+  deleteModal.showModal();
+  yesButton.addEventListener('click', () => {
+    deleteUser(id);
+  });
+  noButton.addEventListener('click', () => {
+    deleteModal.close();
   });
 };
