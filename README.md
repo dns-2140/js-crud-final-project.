@@ -32,7 +32,7 @@ FontAwesome - Icons for UI elements
 
 Clone the repository:
 
-git clone https://github.com/your-username/js-crud-final-project..git
+git clone https://github.com/dns-2140/js-crud-final-project..git
 cd user-management-system
 
 Open index.html in a browser.
