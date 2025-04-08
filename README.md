@@ -28,14 +28,6 @@ Axios - API requests
 
 FontAwesome - Icons for UI elements
 
-📂 File Structure
-
-📁 user-management-system
-├── 📄 index.html # Main HTML file
-├── 📄 styles.css # CSS for layout and design
-├── 📄 script.js # JavaScript logic for CRUD operations
-└── 📄 README.md # Documentation
-
 🔧 Installation & Usage
 
 Clone the repository:
