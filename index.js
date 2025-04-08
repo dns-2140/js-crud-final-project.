@@ -28,31 +28,7 @@ const updateDom = () => {
       <a class="deleteBtn" onclick="handleDelete(${user.id})"><button>delete</button></a>
       </td>
 
-      <dialog id="updateDialog">
-        <form id="updateForm" method="dialog">
-          <h3>User data</h3>
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="updateName" name="name" required />
-          </div>
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="updateUsername" name="username" required />
-          </div>
-          <div class="form-group">
-            <label for="email">email</label>
-            <input type="email" id="updateEmail" name="email" required />
-          </div>
-          <div class="form-group">
-            <label for="address">address</label>
-            <input type="text" id="updateAddress" name="address" />
-          </div>
-          <div class="form-actions">
-            <button type="submit">Submit</button>
-            <button onclick="document.getElementById('updateDialog').close()">Close</button>
-          </div>
-        </form>
-      </dialog>
+      
       
       <tr>`
     );
@@ -171,14 +147,25 @@ modalForm.addEventListener('submit', async (event) => {
 
 const handleEdit = (id) => {
   const updateDialog = document.getElementById('updateDialog');
-  console.log('ini button edit', id);
-  console.log(globalState.users);
+  const updateForm = updateDialog.querySelector('#updateForm');
+  console.log(updateDialog);
+  console.log(updateForm);
 
   const user = globalState.users.find((user) => user.id === id);
-  console.log(user);
+
   document.getElementById('updateName').value = user.name;
   document.getElementById('updateUsername').value = user.username;
   document.getElementById('updateEmail').value = user.email;
   document.getElementById('updateAddress').value = user.address.street;
   updateDialog.showModal();
+  updateForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    console.log('submit');
+    const formData = new FormData(updateForm);
+    const formObject = Object.fromEntries(formData.entries());
+
+    console.log(formData);
+    console.log(formObject);
+    const { name, username, email, address } = formObject;
+  });
 };
