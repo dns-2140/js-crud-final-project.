@@ -137,14 +137,15 @@ const handleEdit = (id) => {
   document.getElementById('updateEmail').value = user.email;
   document.getElementById('updateAddress').value = user.address.street;
   updateDialog.showModal();
-  updateForm.addEventListener('submit', async (e) => {
+  updateForm.onsubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(updateForm);
     const formObject = Object.fromEntries(formData.entries());
     updateDialog.close();
     updateUser(id, formObject);
-  });
+    console.log(formObject);
+  };
 };
 
 const deleteModal = document.getElementById('deleteDialog');
