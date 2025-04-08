@@ -5,11 +5,6 @@ const globalState = {
 const userList = document.querySelector('.userList');
 const openModalBtn = document.querySelector('#open');
 
-const handleEdit = (id) => {
-  console.log(id);
-  updateUser(id);
-};
-
 const handleDelete = (id) => {
   console.log(id);
   deleteUser(id);
@@ -32,6 +27,32 @@ const updateDom = () => {
       onclick="handleEdit(${user.id})"><button>edit</button></a>
       <a class="deleteBtn" onclick="handleDelete(${user.id})"><button>delete</button></a>
       </td>
+
+      <dialog id="updateDialog">
+        <form id="updateForm" method="dialog">
+          <h3>User data</h3>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="updateName" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="updateUsername" name="username" required />
+          </div>
+          <div class="form-group">
+            <label for="email">email</label>
+            <input type="email" id="updateEmail" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="address">address</label>
+            <input type="text" id="updateAddress" name="address" />
+          </div>
+          <div class="form-actions">
+            <button type="submit">Submit</button>
+            <button onclick="document.getElementById('updateDialog').close()">Close</button>
+          </div>
+        </form>
+      </dialog>
       
       <tr>`
     );
@@ -147,3 +168,17 @@ modalForm.addEventListener('submit', async (event) => {
   modalForm.reset();
   dialog.close();
 });
+
+const handleEdit = (id) => {
+  const updateDialog = document.getElementById('updateDialog');
+  console.log('ini button edit', id);
+  console.log(globalState.users);
+
+  const user = globalState.users.find((user) => user.id === id);
+  console.log(user);
+  document.getElementById('updateName').value = user.name;
+  document.getElementById('updateUsername').value = user.username;
+  document.getElementById('updateEmail').value = user.email;
+  document.getElementById('updateAddress').value = user.address.street;
+  updateDialog.showModal();
+};
