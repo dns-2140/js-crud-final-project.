@@ -1,10 +1,10 @@
 User Management System
 
-📌 Overview
+## 📌 Overview
 
 This is a User Management System that allows users to view, edit, add, and delete users dynamically. It utilizes Axios for API requests, FontAwesome for icons, and modals/dialogs for user interaction.
 
-🚀 Features
+## 🚀 Features
 
 Fetch Users: Retrieves user data from https://jsonplaceholder.typicode.com/users.
 
@@ -16,7 +16,7 @@ Delete Users: Remove users with a confirmation prompt.
 
 Styled Table Layout: Uses CSS to ensure a structured, visually appealing table.
 
-🛠️ Technologies Used
+## 🛠️ Technologies Used
 
 HTML - Markup structure
 
@@ -28,7 +28,7 @@ Axios - API requests
 
 FontAwesome - Icons for UI elements
 
-🔧 Installation & Usage
+## 🔧 Installation & Usage
 
 Clone the repository:
 
@@ -37,7 +37,7 @@ cd user-management-system
 
 Open index.html in a browser.
 
-📌 API Endpoints Used
+## 📌 API Endpoints Used
 
 Get Users: GET https://jsonplaceholder.typicode.com/users
 
