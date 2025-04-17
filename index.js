@@ -5,6 +5,14 @@ const globalState = {
 const userList = document.querySelector('.userList');
 const openModalBtn = document.querySelector('#open');
 
+function showLoader() {
+  document.getElementById('loader').style.display = 'flex';
+}
+
+function hideLoader() {
+  document.getElementById('loader').style.display = 'none';
+}
+
 const updateDom = () => {
   userList.innerHTML = '';
   globalState.users.map((user) => {
@@ -30,7 +38,17 @@ const updateDom = () => {
   });
 };
 
+// Show loader
+function showLoader() {
+  document.getElementById('loader').style.display = 'flex';
+}
+
+function hideLoader() {
+  document.getElementById('loader').style.display = 'none';
+}
+
 const fetchData = async () => {
+  showLoader();
   try {
     const users = await axios('https://jsonplaceholder.typicode.com/users');
     globalState.users = [...users.data];
@@ -38,10 +56,13 @@ const fetchData = async () => {
     updateDom();
   } catch (error) {
     console.log('there is an error', error);
+  } finally {
+    hideLoader();
   }
 };
 
 const updateUser = async (id, data) => {
+  showLoader();
   const { name, username, email, address } = data;
   const updatedUser = {
     name,
@@ -87,6 +108,8 @@ const updateUser = async (id, data) => {
   } catch (error) {
     console.log('there is an error', error);
     throw error;
+  } finally {
+    hideLoader();
   }
 };
 
@@ -99,6 +122,8 @@ console.log('ini adlaah modal form', modalForm);
 
 modalForm.addEventListener('submit', async (event) => {
   event.preventDefault();
+  showLoader();
+
   const formData = new FormData(modalForm);
   const formObject = Object.fromEntries(formData.entries());
   console.log(formData);
@@ -121,9 +146,11 @@ modalForm.addEventListener('submit', async (event) => {
     updateDom();
   } catch (error) {
     console.log('there is an error', error);
+  } finally {
+    hideLoader();
+    modalForm.reset();
+    dialog.close();
   }
-  modalForm.reset();
-  dialog.close();
 });
 
 const handleEdit = (id) => {
@@ -153,6 +180,7 @@ const yesButton = document.querySelector('.yes');
 const noButton = document.querySelector('.no');
 
 const deleteUser = async (id) => {
+  showLoader();
   try {
     //update server
     const response = await axios.delete(
@@ -164,11 +192,12 @@ const deleteUser = async (id) => {
     globalState.users = globalState.users.filter(
       (user) => user.id !== parseInt(id)
     );
-
-    updateDom();
-    deleteModal.close();
   } catch (error) {
     console.log('there is an error', error);
+  } finally {
+    updateDom();
+    deleteModal.close();
+    hideLoader();
   }
 };
 
