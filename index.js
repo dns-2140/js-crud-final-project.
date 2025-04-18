@@ -122,7 +122,6 @@ console.log('ini adlaah modal form', modalForm);
 
 modalForm.addEventListener('submit', async (event) => {
   event.preventDefault();
-  showLoader();
 
   const formData = new FormData(modalForm);
   const formObject = Object.fromEntries(formData.entries());
@@ -147,9 +146,12 @@ modalForm.addEventListener('submit', async (event) => {
   } catch (error) {
     console.log('there is an error', error);
   } finally {
-    hideLoader();
     modalForm.reset();
     dialog.close();
+    showLoader();
+    setTimeout(() => {
+      hideLoader();
+    }, 1000);
   }
 });
 
